@@ -141,8 +141,7 @@ def _is_system_module_path(path: str) -> bool:
     if not path:
         return False
     lowered = path.replace("/", "\\").casefold().strip()
-    if lowered.startswith("\\\\?\\"):
-        lowered = lowered[4:]
+    lowered = lowered.removeprefix("\\\\?\\")
     system_root = (
         os.environ.get("SystemRoot", r"C:\Windows")
         .replace("/", "\\")
