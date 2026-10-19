@@ -21,7 +21,7 @@ classifiers = [
 dependencies = [
     "capstone>=5.0.0",
     "pefile>=2023.2.7",
-    "mcp>=1.0,<2",
+    "mcp>=1.0,<3",
 ]
 
 [project.urls]
