@@ -131,6 +131,27 @@ def _require_windows() -> None:
         raise OmniError("process dumping is Windows-only")
 
 
+def _is_system_module_path(path: str) -> bool:
+    """True only for modules under %SystemRoot%, not any 'windows' segment.
+
+    GitHub's Windows runners place Python under
+    ``C:\\hostedtoolcache\\windows\\...``; a naive ``\\windows\\`` substring
+    check would wrongly skip the target executable there.
+    """
+    if not path:
+        return False
+    lowered = path.replace("/", "\\").casefold().strip()
+    if lowered.startswith("\\\\?\\"):
+        lowered = lowered[4:]
+    system_root = (
+        os.environ.get("SystemRoot", r"C:\Windows")
+        .replace("/", "\\")
+        .casefold()
+        .rstrip("\\")
+    )
+    return lowered.startswith(system_root + "\\")
+
+
 def _open_process(pid: int, access: int):
     handle = _kernel32.OpenProcess(access, False, pid)  # type: ignore[attr-defined]
     if not handle:
@@ -300,10 +321,8 @@ def dump_process(
             all_modules.append(meta)
             if is_main and not include_main:
                 continue
-            if skip_system and mod_path:
-                lowered = mod_path.casefold()
-                if "\\windows\\" in lowered or "\\system32\\" in lowered or "\\syswow64\\" in lowered:
-                    continue
+            if skip_system and _is_system_module_path(mod_path):
+                continue
 
             data, failed = _read_memory(handle, base, size)
             safe_name = "".join(c if c.isalnum() or c in "._-" else "_" for c in mod_name)

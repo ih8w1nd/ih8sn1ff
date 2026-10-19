@@ -18,7 +18,17 @@ def test_rebuild_imports_from_own_process_dump(tmp_path):
 
         time.sleep(0.8)
         dump = dump_process(child.pid, outdir=str(tmp_path / "dump"))
-        main_module = next(m for m in dump["modules"] if m["main"])
+        main_module = next((m for m in dump["modules"] if m.get("main")), None)
+        if main_module is None:
+            main_module = next(
+                (
+                    m
+                    for m in dump["modules"]
+                    if m["name"].casefold() == os.path.basename(sys.executable).casefold()
+                ),
+                None,
+            )
+        assert main_module is not None, dump
         assert dump["meta_file"]
         out = tmp_path / "rebuilt_imports.exe"
         result = rebuild_imports(main_module["file"], str(out), dump["meta_file"])
@@ -37,3 +47,13 @@ def test_rebuild_imports_from_own_process_dump(tmp_path):
         assert names
     finally:
         child.terminate()
+
+
+def test_system_module_path_filter():
+    from ih8sn1ff.dumpwin import _is_system_module_path
+
+    assert _is_system_module_path(r"C:\Windows\System32\kernel32.dll")
+    assert _is_system_module_path(r"\\?\C:\Windows\SysWOW64\ntdll.dll")
+    assert not _is_system_module_path(
+        r"C:\hostedtoolcache\windows\Python\3.12.0\x64\python.exe"
+    )
