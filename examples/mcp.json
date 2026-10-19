@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "ih8sn1ff": {
+      "command": "ih8sn1ff-mcp",
+      "env": {
+        "GHIDRA_INSTALL_DIR": "C:/tools/ghidra_12.1.4_PUBLIC"
+      }
+    }
+  }
+}

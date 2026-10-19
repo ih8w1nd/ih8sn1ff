@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ih8sn1ff"
+version = "0.3.0"
+description = "Agent-first reverse-engineering toolkit: live x64 debugging, process dumping, PE/IAT rebuild, Unicorn emulation, RIP-relative xrefs, Delphi RTTI, Ghidra headless — over MCP or CLI."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "ih8Sn1ff contributors" }]
+keywords = ["reverse-engineering", "mcp", "ghidra", "pefile", "capstone", "delphi", "unpacking"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Security",
+]
+
+[project.urls]
+Homepage = "https://github.com/ih8w1nd/ih8sn1ff"
+Repository = "https://github.com/ih8w1nd/ih8sn1ff"
+Issues = "https://github.com/ih8w1nd/ih8sn1ff/issues"
+
+dependencies = [
+    "capstone>=5.0.0",
+    "pefile>=2023.2.7",
+    "mcp>=1.0,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+elf = ["pyelftools>=0.31"]
+emu = ["unicorn>=2.0"]
+yara = ["yara-python>=4.5"]
+dotnet = []          # uses the ilspycmd global tool (dotnet tool install -g ilspycmd)
+ghidra = []          # uses an extracted Ghidra (GHIDRA_INSTALL_DIR)
+all = ["pyelftools>=0.31", "unicorn>=2.0", "yara-python>=4.5"]
+
+[project.scripts]
+ih8sn1ff = "ih8sn1ff.cli:main"
+ih8sn1ff-mcp = "ih8sn1ff.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ih8sn1ff"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

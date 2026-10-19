@@ -1,0 +1,23 @@
+name: ci-windows
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python: ["3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev,elf,emu,yara]"
+      - run: ruff check src tests
+      # Unicorn 2.x raises an internally handled access violation on Windows
+      # that pytest's faulthandler plugin prints as fatal noise.
+      - run: pytest -q -p no:faulthandler

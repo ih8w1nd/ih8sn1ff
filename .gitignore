@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.eggs/
+*.egg-info/
+build/
+dist/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Analysis output — never commit dumps / projects
+dumps/
+ghidra_proj/
+*.dmp
+*.dump
+*.bin
+!tests/fixtures/*.bin
+*.exe
+*.dll
+*.elf
+*.mbn
+*.melf
+!tests/fixtures/**
