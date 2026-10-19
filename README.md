@@ -41,7 +41,7 @@ It does not replace Ghidra — it orchestrates it. Deep static analysis stays in
 Ghidra (headless scripts included). For dynamic work ih8Sn1ff ships its own x64
 debugger for scripted sessions; x64dbg remains better for manual GUI exploring.
 
-## Hacker's corner
+## RE field notes
 
 > The file is a suggestion. Memory is the confession.
 
@@ -64,6 +64,15 @@ Field notes:
 - **First execution decrypts more than any static pass.** Stimulate the feature, then dump again.
 - **If it decrypted once, it will decrypt again.** Reproduce the inputs, not just the bytes.
 - **Patch only what you can restore.** Keep a clean copy and a log of every byte you touch.
+
+### Murphy's laws of reversing
+
+- The function you need is always one xref deeper.
+- Nothing is unreachable once you find the indirect call table.
+- `halt_baddata` is not a suggestion; it is a dare.
+- The bug is never in the compiler. Except that one time, and it was your code anyway.
+- A stack trace is just the program admitting where it gave up.
+- Every obfuscator is a love letter to the next analyst.
 
 ### Why "ih8sn1ff"?
 
@@ -186,11 +195,15 @@ Highlights:
 
 ## Who builds this?
 
-**ih8w1nd** is a reverse engineer and toolmaker. Builds low-level tooling for
-firmware flashing, device service workflows, and runtime unpacking of packed
-Windows applications. Prefers the code that refuses to be read.
+**ih8w1nd** is a reverse engineer and toolmaker who treats "impossible" as a
+scheduling problem. Has built firmware flashing and device-service systems from
+protocol captures, turned packed binaries into readable code, and convinced
+devices that "unsupported" was a temporary opinion. ih8Sn1ff exists because the
+available tools were not fast, honest, or strange enough.
 
 - GitHub: [@ih8w1nd](https://github.com/ih8w1nd)
+- Track record: protocol captures turned into working flashing pipelines; packed binaries turned into readable code; "unsupported" devices turned into success logs.
+- Approach: ask the binary politely, then open a debugger.
 - House motto: *"The file is a suggestion. Memory is the confession."*
 
 ## Ethics and legal
