@@ -41,6 +41,36 @@ It does not replace Ghidra — it orchestrates it. Deep static analysis stays in
 Ghidra (headless scripts included). For dynamic work ih8Sn1ff ships its own x64
 debugger for scripted sessions; x64dbg remains better for manual GUI exploring.
 
+## Hacker's corner
+
+> The file is a suggestion. Memory is the confession.
+
+A loader is a promise; a dump is a receipt. When the two disagree, trust the
+one that actually executed.
+
+```text
+     on-disk image          live memory           analysis image
+   ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
+   │  encrypted   │      │  decrypted   │      │   readable   │
+   │  sections    │ ───▶ │  modules     │ ───▶ │  functions   │
+   └──────────────┘      └──────────────┘      └──────────────┘
+        loader                 dump               rebuild
+```
+
+Field notes:
+
+- **Run it before you trust it.** The static view is a proposal; execution is the vote.
+- **Strings lie. References rarely do.** Follow the pointer, not the marketing copy.
+- **First execution decrypts more than any static pass.** Stimulate the feature, then dump again.
+- **If it decrypted once, it will decrypt again.** Reproduce the inputs, not just the bytes.
+- **Patch only what you can restore.** Keep a clean copy and a log of every byte you touch.
+
+### Why "ih8sn1ff"?
+
+The `ih8` prefix follows the author's handle `ih8w1nd`; `sn1ff` is for the part
+of reversing that feels like packet sniffing: watching what a program actually
+does instead of what it claims. The `1` is not negotiable.
+
 ## Install
 
 ```bash
@@ -153,6 +183,15 @@ Highlights:
 4. Ghidra headless decompilation driven by strings, not symbol names.
 5. Live x64 debugging and bounded emulation for decrypt-on-execute targets.
 6. When to stop scripting and switch to manual x64dbg / Frida.
+
+## Who builds this?
+
+**ih8w1nd** is a reverse engineer and toolmaker. Builds low-level tooling for
+firmware flashing, device service workflows, and runtime unpacking of packed
+Windows applications. Prefers the code that refuses to be read.
+
+- GitHub: [@ih8w1nd](https://github.com/ih8w1nd)
+- House motto: *"The file is a suggestion. Memory is the confession."*
 
 ## Ethics and legal
 
