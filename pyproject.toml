@@ -18,16 +18,16 @@ classifiers = [
     "Topic :: Security",
 ]
 
-[project.urls]
-Homepage = "https://github.com/ih8w1nd/ih8sn1ff"
-Repository = "https://github.com/ih8w1nd/ih8sn1ff"
-Issues = "https://github.com/ih8w1nd/ih8sn1ff/issues"
-
 dependencies = [
     "capstone>=5.0.0",
     "pefile>=2023.2.7",
     "mcp>=1.0,<2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ih8w1nd/ih8sn1ff"
+Repository = "https://github.com/ih8w1nd/ih8sn1ff"
+Issues = "https://github.com/ih8w1nd/ih8sn1ff/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6"]
