@@ -1,7 +1,8 @@
 # Publishing ih8Sn1ff
 
-This directory is ready to become a GitHub repository; no VCS metadata is
-included. Run these commands yourself from the repository root.
+The repository is live at https://github.com/ih8w1nd/ih8sn1ff (public, default
+branch `main`, tag `v0.3.0`). The commands below document how it was created and
+how to reproduce the setup.
 
 ## Push to GitHub
 
@@ -50,6 +51,21 @@ python -m twine upload dist/*
 The `ih8sn1ff` name was available on PyPI on 2026-10-19 (HTTP 404); availability
 can change, so register/publish early. Publishing requires the owner's PyPI
 token; the repository cannot do it.
+
+## Automated PyPI release (trusted publishing)
+
+`.github/workflows/release.yml` publishes when a GitHub release is published:
+
+1. On PyPI, add a trusted publisher for project `ih8sn1ff`:
+   owner `ih8w1nd`, repository `ih8sn1ff`, workflow `release.yml`,
+   environment `pypi`.
+2. In the GitHub repository, create an environment named `pypi`
+   (Settings > Environments).
+3. Publish the draft release `v0.3.0`, or create a new release. The workflow
+   builds the sdist/wheel and uploads via OIDC; no PyPI token is stored.
+
+Publishing requires the owner's PyPI account authorization; it cannot be
+completed by the repository or an automated agent without that authorization.
 
 ## MCP client registration
 

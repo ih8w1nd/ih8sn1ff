@@ -1,5 +1,11 @@
 # ih8Sn1ff
 
+[![ci](https://github.com/ih8w1nd/ih8sn1ff/actions/workflows/ci.yml/badge.svg)](https://github.com/ih8w1nd/ih8sn1ff/actions/workflows/ci.yml)
+[![ci-windows](https://github.com/ih8w1nd/ih8sn1ff/actions/workflows/ci-windows.yml/badge.svg)](https://github.com/ih8w1nd/ih8sn1ff/actions/workflows/ci-windows.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Repository: https://github.com/ih8w1nd/ih8sn1ff
+
 Agent-first reverse-engineering toolkit with a native **MCP server** and a matching CLI.
 Built for the workflow that actually cracks modern protected binaries: **run → dump →
 rebuild → analyze → decompile**, with every step scriptable and every result
